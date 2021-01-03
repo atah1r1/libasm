@@ -1,19 +1,28 @@
-segment .text
+section.text:
 	global _ft_strcpy
-	extern _ft_strlen	; call ft_strlen
 
-; ft_strcpy(arg0 = rdi = dst, arg1 = rsi = src)
 _ft_strcpy:
-	push 	rdi			; to save it on the top of the stack
-	mov 	rdi, rsi	; move rdi to rsi
-	call 	_ft_strlen 	; call ft_strlen, result is stock in rax
-	mov 	rcx, rax	; move rax dans rcx because rcx used by rep after
-	pop 	rdi			; get rdi from the top of the stack
-	cld					; clear flag DF (security) DF = 0 = increment for rep, DF = 1 = decrement for rep
-	mov 	rax, rdi	; set return is the first adresse of rdi
-	rep 	movsb			; movsb get string from rsi and set it to rdi at rep, rep incres automaticaly until rsi on movsb is'nt 0 
-	mov 	BYTE [rdi], 0	; rdi was increse by movsb, so we are at end of the copied string
-	jmp 	exit			; jump to exit
+	push rdx ; cpy char (puch onto stack)
+	push rcx ; count
+	mov rdx, 0x0
+	mov rcx, 0x0
+	cmp rsi, BYTE 0x0
+	jz _is_null ; if the comparaison was true move to _is_null label
+	_start_loop:
+		mov dl, BYTE [rsi + rcx] ; put char pointed by rsi + rcx in dl (dl is rdx 8 bits (1 char - 8 bits))
+		mov BYTE [rdi + rcx], dl ; put char in rdi + rcx
+		cmp [rsi + rcx], BYTE 0x0 ; compare rsi char to \0
+		jz _end_loop ; if compare true then go to flag _end_loop
+		inc rcx ; increment the pointer 
+		jmp _start_loop ; restart loop
+	_end_loop:
+	mov rax, rdi ; return dst
+	pop rdx
+	pop rcx
+	ret
 
-exit:
-	ret					; return rax
+_is_null:
+	mov rax, rsi
+	pop rdx
+	pop rcx
+	ret

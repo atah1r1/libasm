@@ -6,13 +6,13 @@
 #    By: atahiri <atahiri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/02 12:01:48 by atahiri           #+#    #+#              #
-#    Updated: 2021/01/02 12:29:03 by atahiri          ###   ########.fr        #
+#    Updated: 2021/01/03 10:53:32 by atahiri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libasm.a
 
-SRCS = ft_strlen.s ft_strcpy.s
+SRCS = ft_strlen.s ft_strcpy.s ft_strcmp.s
 OBJS = $(SRCS:.s=.o)
 FLAGS = -Wall -Werror -Wextra
 NA = nasm
