@@ -2,7 +2,7 @@ section.text:
 	global _ft_strcpy
 
 _ft_strcpy:
-	push rdx ; cpy char (puch onto stack)
+	push rdx ; cpy char (push onto stack)
 	push rcx ; count
 	mov rdx, 0x0
 	mov rcx, 0x0
