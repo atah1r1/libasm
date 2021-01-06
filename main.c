@@ -6,13 +6,14 @@
 /*   By: atahiri <atahiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 12:32:02 by atahiri           #+#    #+#             */
-/*   Updated: 2021/01/05 19:38:12 by atahiri          ###   ########.fr       */
+/*   Updated: 2021/01/06 10:31:25 by atahiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 size_t		ft_strlen(char const *str);
 char        *ft_strcpy(char *dest, const char *src);
@@ -110,30 +111,21 @@ void check_strcmp()
 	printf("\n");
 }
 
-void check_write()
+void		check_write()
 {
-	char *hello_world = "Coucou\n";
-	char *empty = "";
-
+	char *buff = "Hello world\n";
 	printf("\n================================\n");
-	printf("========== FT_WRITE ============\n");
+	printf("=========== FT_WRITE ===========\n");
 	printf("================================\n\n");
-	printf("%-20s: \"%s\"\n", "char *", hello_world);
-	printf("%-20s: \"MAIN:%zu\"\n", "MAIN", write(1, hello_world, 7));
-	// printf("\n");
-	printf("%-20s: \"LIBASM:%zu\"\n", "LIBASM", ft_write(1, hello_world, 7));
+	printf("MAIN: %zd", write(1, buff, ft_strlen(buff)));
 	printf("\n");
-	printf("%-20s: \"%s\"\n", "char *", empty);
-	printf("%-20s: \"MAIN:%zu\"\n", "MAIN", write(1, empty, 0));
-	// printf("\n");
-	printf("%-20s: \"LIBASM:%zu\"\n", "LIBASM", ft_write(1, empty, 0));
+	printf("LIBASM: %zd", ft_write(1, buff, ft_strlen(buff)));
 	printf("\n");
-	printf("%-20s: \"%s\"\n", "char *", hello_world);
-	printf("%-20s: \"MAIN:%zu\"\n", "MAIN", write(-7, NULL, 7));
-	// printf("\n");
-	printf("%-20s: \"LIBASM:%zu\"\n", "LIBASM", ft_write(-7, NULL, 7));
-	// printf("\n");
-	
+	printf("TESTING NULL BUFFER MAIN FUNCTION:\n");
+	printf("MAIN: %zd", write(1, NULL, 1));
+	printf("\n");
+	printf("TESTING NULL BUFFER LIBASM FUNCTION:\n");
+	printf("LIBASM: %zd", ft_write(1, NULL, 1));
 }
 
 int     main()
