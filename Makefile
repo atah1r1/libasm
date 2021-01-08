@@ -6,7 +6,7 @@
 #    By: atahiri <atahiri@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/02 12:01:48 by atahiri           #+#    #+#              #
-#    Updated: 2021/01/06 09:09:29 by atahiri          ###   ########.fr        #
+#    Updated: 2021/01/08 11:14:35 by atahiri          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJS = $(SRCS:.s=.o)
 FLAGS = -Wall -Werror -Wextra
 NA = nasm
 TEST = test
-NA_FLAGS =  -f macho64
+NA_FLAGS = -f macho64
 
 %.o:			%.s
 				$(NA) $(NA_FLAGS) $<
