@@ -6,7 +6,7 @@
 /*   By: atahiri <atahiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 12:32:02 by atahiri           #+#    #+#             */
-/*   Updated: 2021/01/08 11:43:14 by atahiri          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:02:26 by atahiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ size_t		ft_strlen(char const *str);
 char        *ft_strcpy(char *dest, const char *src);
 int			ft_strcmp(const char *s1, const char *s2);
 ssize_t		ft_write(int fildes, const void *buf, size_t nbyte);
+ssize_t		read(int fildes, void *buf, size_t nbyte);
 
 void clear_buffer(char *buffer, int size)
 {

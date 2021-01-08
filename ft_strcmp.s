@@ -1,23 +1,25 @@
-section.text:
-    global  _ft_strcmp
+segment.text:
+	global _ft_strcmp
 
 _ft_strcmp:
-		push	r10
-		mov		r10, 0				; i = 0
+	xor 	rax, rax	; define rax to 0
+	jmp		_compa		; call compa
 
-_start_loop:
-		mov		al, byte [rdi+r10]	; al = str1[i]
-		mov		bl, byte [rsi+r10]	; bl = str2[i]
-        inc		r10					; i++
-		cmp		al, 0				; if al == 0
-		je		_end_loop			; then zero
-		cmp		bl, 0				; if bl == 0
-		je		_end_loop			; then zero
-		cmp		al, bl				; if al == bl
-    	je		_start_loop			; then loop
-		jmp		_end_loop
+_compa:
+	mov		al, BYTE [rdi]	; get the least significant byte in rdi where is stock the value of the char
+	mov		bl, BYTE [rsi]	; get the least significant byte in rsi where is stock the value of the char
+	cmp		al, 0			; if we are not at the end of rdi (arg0)
+	je		_exit			; jump to exit_end
+	cmp		bl, 0			; if we are not at the end of rsi (arg1)
+	je		_exit			; jump to exit
+	cmp 	al, bl			; compare al and bl
+	jne 	_exit			; if the result of cmp is diferrent than 0 so the string are differents
+	inc 	rdi				; increment the rdi pointer
+	inc 	rsi				; increment the rsi pointer
+	jmp 	_compa			; if we are here it's because the chars of string are equals the we can continue
 
-_end_loop:
-	pop		r10
-	sub		rax, rbx
-	ret
+_exit:
+	movzx	rax, al			; (zero extend) movzx = copy a register of inferior size in a bigger and fill the other bits with 0, and this register is rax
+    movzx	rbx, bl			; same that previous but set it in rbx
+    sub		rax, rbx		; stock the difference of rax and rbx in rax; Finaly : do the difference beetween the char at the rdi pointer and the char at the rsi pointer 
+	ret						; return (rax)
