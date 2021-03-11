@@ -20,7 +20,7 @@ size_t		ft_strlen(char const *str);
 char        *ft_strcpy(char *dest, const char *src);
 int			ft_strcmp(const char *s1, const char *s2);
 ssize_t		ft_write(int fildes, const void *buf, size_t nbyte);
-ssize_t		read(int fildes, void *buf, size_t nbyte);
+ssize_t		ft_read(int fildes, void *buf, size_t nbyte);
 char 		*ft_strdup(const char *s1);
 
 void red() 
@@ -230,6 +230,63 @@ void check_strdup()
 	printf("\n");
 }
 
+void check_read()
+{
+	int fd = open("file.txt", O_RDONLY);
+	char buff1[1024];
+	int ret = 1;
+	red();
+	printf("\n================================\n");
+	printf("========== FT_READ =============\n");
+	printf("================================\n\n");
+	reset();
+	yellow();
+	printf("%-20s: \n", "MAIN:	header file.txt | read ");
+	ret = read(fd, buff1, 890);
+	buff1[ret] = 0;
+	reset();
+	printf("[return : %d]\n[%s]\n", ret, buff1);
+	printf("\n");
+	close(fd);
+
+
+	fd = open("file.txt", O_RDONLY);
+	clear_buffer(buff1, 891);
+	green();
+	printf("%-20s: \n", "LIBASM:	header file.txt | ft_read ");
+	ret = ft_read(fd, buff1, 890);
+	buff1[ret] = 0;
+	reset();
+	printf("[return : %d]\n[%s]\n", ret, buff1);
+	printf("\n");
+	clear_buffer(buff1, 891);
+	close(fd);
+
+	printf("\n------------------------------\n\n");
+
+	fd = open("wrong", O_RDONLY);
+	yellow();
+	printf("%-20s: \n", "header no_file.txt | read ");
+	ret = read(fd, buff1, 890);
+	buff1[ret] = 0;
+	reset();
+	printf("[return : %d]\n[%s]\n", ret, buff1);
+	printf("\n");
+	close(fd);
+
+	fd = open("wrong", O_RDONLY);
+	clear_buffer(buff1, 891);
+	green();
+	printf("%-20s: \n", "header no_file.txt | ft_read ");
+	ret = ft_read(fd, buff1, 890);
+	buff1[ret] = 0;
+	reset();
+	printf("[return : %d]\n[%s]\n", ret, buff1);
+	printf("\n");
+	clear_buffer(buff1, 891);
+	close(fd);
+}
+
 int     main()
 {
     check_strlen();
@@ -237,4 +294,5 @@ int     main()
 	check_strcmp();
 	check_write();
 	check_strdup();
+	check_read();
 }
